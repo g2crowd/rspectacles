@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>RSpectacles</title>
+  <link rel='stylesheet' href='css/style.css' />
+</head>
+<body>
+  <h1>RSpectacles is Born!</h1>
+
+  <form>
+    <label><input type="radio" name="mode" value="size"> Time</label>
+    <label><input type="radio" name="mode" value="count" checked> Count</label>
+  </form>
+
+  <div class='example-wrapper'>
+    <ul class='example-details'>
+      <li class='js-name'></li>
+      <li>Line Number: <span class='js-line_number'></span></li>
+      <li>Status: <span class='js-status'></span></li>
+      <li>
+        <span class='js-value'></span> <span class='js-time_or_count'></span>
+      </li>
+    </ul>
+  </div>
+
+  <script type='text/javascript' src='js/d3.js'></script>
+  <script type='text/javascript' data-main='js/script' src='js/require.js'></script>
+</body>
+</html>
