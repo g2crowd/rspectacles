@@ -1,1 +1,1 @@
-require 'rspectacles/app/app.rb'
+require 'rspectacles/app.rb'

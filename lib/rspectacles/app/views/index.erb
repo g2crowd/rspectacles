@@ -3,7 +3,7 @@
 <html>
 <head>
   <title>RSpectacles</title>
-  <link rel='stylesheet' href='css/style.css' />
+  <link rel='stylesheet' href='<%= url 'css/style.css' %>' />
 </head>
 <body>
   <h1>RSpectacles is Born!</h1>
@@ -24,7 +24,7 @@
     </ul>
   </div>
 
-  <script type='text/javascript' src='js/d3.js'></script>
-  <script type='text/javascript' data-main='js/script' src='js/require.js'></script>
+  <script type='text/javascript' src='<%= url '/js/d3.js' %>'></script>
+  <script type='text/javascript' data-main='<%= url 'js/script' %>' src='<%= url '/js/require.js' %>'></script>
 </body>
 </html>
