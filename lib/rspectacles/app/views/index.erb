@@ -9,22 +9,23 @@
   <h1>RSpectacles is Born!</h1>
 
   <form>
-    <label><input type="radio" name="mode" value="size"> Time</label>
-    <label><input type="radio" name="mode" value="count" checked> Count</label>
+    <label><input type="radio" name="mode" value="size" checked> Time</label>
+    <label><input type="radio" name="mode" value="count"> Count</label>
   </form>
 
-  <div class='example-wrapper'>
+  <div class='example-wrapper' id='template'>
     <ul class='example-details'>
-      <li class='js-name'></li>
-      <li>Line Number: <span class='js-line_number'></span></li>
-      <li>Status: <span class='js-status'></span></li>
+      <li id='name'></li>
+      <li>Line Number: <span id='line_number'></span></li>
+      <li>Status: <span id='status'></span></li>
       <li>
-        <span class='js-value'></span> <span class='js-time_or_count'></span>
+        <span id='value'></span> <span id='time_or_count'></span>
       </li>
     </ul>
   </div>
 
   <script type='text/javascript' src='<%= url '/js/d3.js' %>'></script>
+  <script type='text/javascript' src='<%= url '/js/plates.js' %>'></script>
   <script type='text/javascript' data-main='<%= url 'js/script' %>' src='<%= url '/js/require.js' %>'></script>
 </body>
 </html>

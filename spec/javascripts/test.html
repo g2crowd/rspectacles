@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>QUnit Example</title>
+  <link rel="stylesheet" href="resources/qunit.css">
+</head>
+<body>
+  <div id="qunit"></div>
+  <div id="qunit-fixture"></div>
+  <script src="../../lib/rspectacles/app/public/js/jquery.js"></script>
+  <script src="../../lib/rspectacles/app/public/js/require.js"></script>
+  <script src="resources/qunit.js"></script>
+  <script>
+    require.config({ baseUrl: '../../lib/rspectacles/app/public/js' });
+  </script>
+  <script src="tests/pathtree_spec.js"></script>
+  <script src="tests/chart_spec.js"></script>
+</body>
+</html>
