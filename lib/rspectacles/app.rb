@@ -4,12 +4,6 @@ require 'json'
 require 'em-hiredis'
 require 'uri'
 require 'thin'
-require 'pry'
-
-# Helpers
-# require './lib/render_partial'
-# require './db/config'
-
 
 module RSpectacles
   class App < Sinatra::Base
