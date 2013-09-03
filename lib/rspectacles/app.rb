@@ -27,7 +27,7 @@ module RSpectacles
     end
 
     uri = URI.parse 'redis://127.0.0.1:6379/'
-    emredis = nil
+    $emredis = nil
 
     # Routes
     get '/' do
@@ -38,17 +38,20 @@ module RSpectacles
       stream :keep_open do |out|
         connections << out
         out.callback { connections.delete(out) }
+        dump_last_run out
       end
     end
 
-    def path_prefix
-      request.env['SCRIPT_NAME']
+    def dump_last_run(out)
+      $emredis.lrange('redis-rspec-last-run', 0, -1) do |list|
+        list.each { |msg| out << "data: #{msg}\n\n" }
+      end
     end
 
     EM.next_tick do
-      emredis = EM::Hiredis.connect(uri)
+      $emredis = EM::Hiredis.connect(uri)
 
-      emredis.pubsub.subscribe 'redis-rspec-examples' do |message|
+      $emredis.pubsub.subscribe 'redis-rspec-examples' do |message|
         connections.each { |out| out << "data: #{message}\n\n" }
       end
     end

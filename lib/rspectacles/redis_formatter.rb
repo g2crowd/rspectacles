@@ -10,6 +10,7 @@ module RSpectacles
       def config
         OpenStruct.new({
           channel_name: 'redis-rspec-examples',
+          last_run_key: 'redis-rspec-last-run',
           port: 6379,
           host: '127.0.0.1',
           password: ''
@@ -27,6 +28,7 @@ module RSpectacles
 
     def start(example_count)
       log 'status:start'
+      redis.del config.last_run_key
     end
 
     def stop
@@ -49,7 +51,6 @@ module RSpectacles
     end
 
     def close
-      redis.flushall
     end
 
     private
@@ -60,10 +61,13 @@ module RSpectacles
 
     def log(message)
       redis.publish config.channel_name, message
+      redis.lpush config.last_run_key, message
     end
 
     def log_formatted(example)
-      redis.publish config.channel_name, format_example(example)
+      message = format_example(example)
+      redis.publish config.channel_name, message
+      redis.lpush config.last_run_key, message
     end
 
     def format_example(example)
