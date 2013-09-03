@@ -11,7 +11,7 @@ require 'pry'
 # require './db/config'
 
 
-module Rspectacles
+module RSpectacles
   class App < Sinatra::Base
     connections = []
     dir = File.dirname(File.expand_path(__FILE__))

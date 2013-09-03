@@ -4,7 +4,7 @@ require 'rspectacles/version'
 
 Gem::Specification.new do |s|
   s.name        = 'rspectacles'
-  s.version     = Rspectacles::VERSION
+  s.version     = RSpectacles::VERSION
   s.authors     = ['Michael Wheeler']
   s.email       = ['mwheeler@g2crowd.com']
   s.homepage    = 'https://github.com/wheeyls/rspectacles'

@@ -12,5 +12,5 @@ EM.run do
     require 'rspectacles/app.rb'
   end
 
-  Thin::Server.start Rspectacles::App, '0.0.0.0', 4567
+  Thin::Server.start RSpectacles::App, '0.0.0.0', 4567
 end

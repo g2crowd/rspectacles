@@ -1,3 +1,3 @@
-module Rspectacles
+module RSpectacles
   VERSION='0.0.1'
 end
