@@ -15,10 +15,25 @@ form {
   position: fixed;
   top: 0;
   left: 0;
-  padding: 20px;
   background: rgba(255, 255, 255, 0.5);
   width: 100%
   z-index: 100;
   overflow: auto;
-  max-width: 300px;
+  max-width: 350px;
 }
+
+ul {
+ border: 1px solid #eee;
+ list-style-type: none;
+ margin: 0;
+ padding: 15px;
+ font-size: 12px;
+}
+
+li {
+  margin: 0;
+  padding: 0;
+}
+
+.failed { color: red; }
+.passed { color: green; }

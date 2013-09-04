@@ -11,16 +11,21 @@
     <label><input type="radio" name="mode" value="count"> Count</label>
   </form>
 
-  <div class='example-wrapper' id='template'>
+  <div class='example-wrapper'>
+  </div>
+
+  <script id='template' type='text/x-template'>
     <ul class='example-details'>
-      <li id='name'></li>
-      <li>Line Number: <span id='line_number'></span></li>
-      <li>Status: <span id='status'></span></li>
+      <li class='{{ status }}'><span id='status'>{{ status }}</span></li>
+      <li><strong>Description:</strong></li>
+      <li class='name'>{{ name }}</li>
+      <li><strong>File:</strong></li>
+      <li>{{ file_path }}:<span id='line_number'>{{ line_number }}</span></li>
       <li>
-        <span id='value'></span> <span id='time_or_count'></span>
+        <span id='value'>{{ value }}</span> <span id='time_or_count'> {{ time_or_count }}</span>
       </li>
     </ul>
-  </div>
+  </script>
 
   <script type='text/javascript' src='<%= url '/js/d3.js' %>'></script>
   <script type='text/javascript' src='<%= url '/js/plates.js' %>'></script>
