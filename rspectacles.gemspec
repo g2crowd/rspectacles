@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.homepage    = 'https://github.com/G2Labs-net/rspectacles'
   s.summary     = %q{Visualize rspec test running in the browser}
   s.description = %q{Visualize rspec test running in the browser}
-  s.required_ruby_version = '1.9.3'
+  s.license     = 'MIT'
 
   s.rubyforge_project = 'rspectacles'
 
