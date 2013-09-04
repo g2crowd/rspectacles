@@ -1,16 +1,12 @@
 #!/usr/bin/env ruby
-#
 
-require 'eventmachine'
-EM.run do
-  begin
-    require 'rspectacles/app.rb'
-  rescue LoadError => e
-    require 'rubygems'
-    path = File.expand_path '../../lib', __FILE__
-    $:.unshift(path) if File.directory?(path) && !$:.include?(path)
-    require 'rspectacles/app.rb'
-  end
-
-  Thin::Server.start RSpectacles::App, '0.0.0.0', 4567
+begin
+  require 'rspectacles/app.rb'
+rescue LoadError => e
+  require 'rubygems'
+  path = File.expand_path '../../lib', __FILE__
+  $:.unshift(path) if File.directory?(path) && !$:.include?(path)
+  require 'rspectacles/app.rb'
 end
+
+Thin::Server.start RSpectacles::App, '0.0.0.0', 4567

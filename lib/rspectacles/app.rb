@@ -67,4 +67,3 @@ module RSpectacles
     end
   end
 end
-
