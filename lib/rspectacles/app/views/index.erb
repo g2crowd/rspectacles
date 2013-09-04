@@ -25,5 +25,8 @@
   <script type='text/javascript' src='<%= url '/js/d3.js' %>'></script>
   <script type='text/javascript' src='<%= url '/js/plates.js' %>'></script>
   <script type='text/javascript' data-main='<%= url 'js/script' %>' src='<%= url '/js/require.js' %>'></script>
+  <script>
+    require.config({ urlArgs: (new Date().getTime())});
+  </script>
 </body>
 </html>

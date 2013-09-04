@@ -4,6 +4,7 @@ PATH
     rspectacles (0.0.2)
       em-hiredis (~> 0.2.1)
       rake
+      redis
       sinatra (~> 1.4.3)
       thin (>= 1.5.0)
 
@@ -20,6 +21,7 @@ GEM
     rack-protection (1.5.0)
       rack
     rake (10.1.0)
+    redis (3.0.4)
     rspec (2.12.0)
       rspec-core (~> 2.12.0)
       rspec-expectations (~> 2.12.0)

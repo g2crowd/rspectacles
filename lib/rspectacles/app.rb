@@ -2,6 +2,7 @@ require 'rubygems'
 require 'sinatra/base'
 require 'json'
 require 'em-hiredis'
+require 'redis'
 require 'uri'
 require 'thin'
 
@@ -22,6 +23,7 @@ module RSpectacles
 
     uri = URI.parse 'redis://127.0.0.1:6379/'
     $emredis = nil
+    $redis = Redis.new host: uri.host, port: uri.port
 
     # Routes
     get '/' do
@@ -32,8 +34,11 @@ module RSpectacles
       stream :keep_open do |out|
         connections << out
         out.callback { connections.delete(out) }
-        dump_last_run out
       end
+    end
+
+    get '/last' do
+      $redis.lrange('redis-rspec-last-run', 0, -1).to_json
     end
 
     def dump_last_run(out)
