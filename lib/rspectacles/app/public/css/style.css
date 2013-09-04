@@ -1,3 +1,19 @@
+ul {
+ border: 1px solid #eee;
+ list-style-type: none;
+ margin: 0;
+ padding: 15px;
+ font-size: 12px;
+}
+
+li {
+  margin: 0;
+  padding: 0;
+}
+
+.failed { color: red; }
+.passed { color: green; }
+
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   margin: auto;
@@ -21,19 +37,3 @@ form {
   overflow: auto;
   max-width: 350px;
 }
-
-ul {
- border: 1px solid #eee;
- list-style-type: none;
- margin: 0;
- padding: 15px;
- font-size: 12px;
-}
-
-li {
-  margin: 0;
-  padding: 0;
-}
-
-.failed { color: red; }
-.passed { color: green; }

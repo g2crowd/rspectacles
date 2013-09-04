@@ -3,7 +3,7 @@
 <html>
 <head>
   <title>RSpectacles</title>
-  <link rel='stylesheet' href='<%= url 'css/style.css' %>' />
+  <link rel='stylesheet' href='<%= versioned_stylesheet 'style' %>' />
 </head>
 <body data-stream-url=<%= url '/stream' %> data-last-url=<%= url '/last' %>>
   <form>
@@ -27,9 +27,9 @@
     </ul>
   </script>
 
-  <script type='text/javascript' src='<%= url '/js/d3.js' %>'></script>
-  <script type='text/javascript' src='<%= url '/js/plates.js' %>'></script>
-  <script type='text/javascript' data-main='<%= url 'js/script' %>' src='<%= url '/js/require.js' %>'></script>
+  <script type='text/javascript' src='<%= versioned_javascript 'd3' %>'></script>
+  <script type='text/javascript' src='<%= versioned_javascript 'plates' %>'></script>
+  <script type='text/javascript' data-main='<%= versioned_javascript 'script' %>' src='<%= versioned_javascript 'require' %>'></script>
   <script>
     require.config({ urlArgs: (new Date().getTime())});
   </script>
