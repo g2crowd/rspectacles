@@ -1,7 +1,7 @@
 # RSpectacles
 
-RSpectacles is an in-browser visualizer and profiler for RSpec. It uses server
-sent events, redis, and d3.js to render a
+RSpectacles is an in-browser visualizer and profiler for RSpec. It uses
+Server-Sent Events, Redis, and d3.js to render a
 [partition](http://bl.ocks.org/mbostock/4063423) of your specs in real time, so
 that you can tell at a glance where the time is spent in your test suite.
 
@@ -24,7 +24,7 @@ Then add the formatter to your .rspec file:
 
     --format progress # or whatever other formatters you want to use
 
-RSpectacles depends on [redis](http://redis.io) for pubsub and persistence. You
+RSpectacles depends on [Redis](http://redis.io) for pubsub and persistence. You
 can quickly get an instance up and running by using your favorite package
 manager:
 

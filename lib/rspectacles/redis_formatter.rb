@@ -1,4 +1,5 @@
 require 'rspec/core/formatters/base_formatter'
+require 'rspectacles/config'
 require 'ostruct'
 require 'redis'
 
@@ -8,18 +9,13 @@ module RSpectacles
 
     class << self
       def config
-        OpenStruct.new({
-          channel_name: 'redis-rspec-examples',
-          last_run_key: 'redis-rspec-last-run',
-          port: 6379,
-          host: '127.0.0.1',
-          password: ''
-        })
+        RSpectacles.config
       end
     end
 
     def initialize(output)
-      self.redis = Redis.new host: config.host, port: config.port
+      uri = config.redis_uri
+      self.redis = Redis.new host: uri.host, port: uri.port, password: uri.password
     end
 
     def message(message)
@@ -28,7 +24,7 @@ module RSpectacles
 
     def start(example_count)
       log 'status:start'
-      redis.del config.last_run_key
+      redis.del config.last_run_primary_key
     end
 
     def stop
@@ -60,14 +56,14 @@ module RSpectacles
     end
 
     def log(message)
-      redis.publish config.channel_name, message
-      redis.lpush config.last_run_key, message
+      redis.publish config.pubsub_channel_name, message
+      redis.lpush config.last_run_primary_key, message
     end
 
     def log_formatted(example)
       message = format_example(example)
-      redis.publish config.channel_name, message
-      redis.lpush config.last_run_key, message
+      redis.publish config.pubsub_channel_name, message
+      redis.lpush config.last_run_primary_key, message
     end
 
     def format_example(example)

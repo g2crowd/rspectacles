@@ -9,4 +9,4 @@ rescue LoadError => e
   require 'rspectacles/app.rb'
 end
 
-Thin::Server.start RSpectacles::App, '0.0.0.0', 4567
+Thin::Server.start RSpectacles::App, '0.0.0.0', RSpectacles.config.sinatra_port
