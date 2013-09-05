@@ -48,6 +48,25 @@ Or mounted directly on your app:
     # routes.rb
     mount RSpectacles::App => '/rspectacles'
 
+## Configuration
+If you need to change any settings, the best method is to create a yaml file
+with your settings, and set the ```RSPECTACLES_CONFIG``` environment variable so
+that both the server and formatter can locate the file.
+
+For instance:
+
+```sh
+export RSPECTACLES_CONFIG='/path/to/config/rspectacles.yml'
+```
+
+And in ```rspectacles.yml```:
+```yaml
+sinatra_port: 4567
+redis_uri: 'redis://127.0.0.1:6379/'
+pubsub_channel_name: 'redis-rspec-examples'
+last_run_primary_key: 'redis-rspec-last-run'
+```
+
 ## Realtime Results
 
 RSpectacles will attempt to stream spec results into the browser in realtime.
