@@ -1,3 +1,4 @@
+[![Gem Version](https://badge.fury.io/rb/rspectacles.png)](http://badge.fury.io/rb/rspectacles)
 # RSpectacles
 
 RSpectacles is an in-browser visualizer and profiler for RSpec. It uses
