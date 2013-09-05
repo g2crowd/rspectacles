@@ -2,6 +2,7 @@ require 'rspec/core/formatters/base_formatter'
 require 'rspectacles/config'
 require 'ostruct'
 require 'redis'
+require 'uri'
 
 module RSpectacles
   class RedisFormatter < RSpec::Core::Formatters::BaseFormatter
@@ -14,7 +15,7 @@ module RSpectacles
     end
 
     def initialize(output)
-      uri = config.redis_uri
+      uri = URI.parse config.redis_uri
       self.redis = Redis.new host: uri.host, port: uri.port, password: uri.password
     end
 
