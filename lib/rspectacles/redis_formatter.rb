@@ -3,6 +3,7 @@ require 'rspectacles/config'
 require 'ostruct'
 require 'redis'
 require 'uri'
+require 'json'
 
 module RSpectacles
   class RedisFormatter < RSpec::Core::Formatters::BaseFormatter
