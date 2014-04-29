@@ -1,12 +1,12 @@
 PATH
   remote: .
   specs:
-    rspectacles (0.0.8)
+    rspectacles (0.0.9)
       em-hiredis (~> 0.2.1)
       rake
       redis
       sinatra (~> 1.4.5)
-      thin (= 1.5.1)
+      thin (>= 1.5.1)
 
 GEM
   remote: https://rubygems.org/
@@ -34,9 +34,9 @@ GEM
       rack (~> 1.4)
       rack-protection (~> 1.4)
       tilt (~> 1.3, >= 1.3.4)
-    thin (1.5.1)
+    thin (1.6.2)
       daemons (>= 1.0.9)
-      eventmachine (>= 0.12.6)
+      eventmachine (>= 1.0.0)
       rack (>= 1.0.0)
     tilt (1.4.1)
 
