@@ -7,6 +7,9 @@ require 'json'
 
 module RSpectacles
   class RedisFormatter < RSpec::Core::Formatters::BaseFormatter
+    RSpec::Core::Formatters.register self, :message, :start, :stop, :close,
+                                     :example_passed, :example_pending, :example_failed
+
     attr_accessor :redis
 
     class << self
@@ -20,35 +23,32 @@ module RSpectacles
       self.redis = Redis.new host: uri.host, port: uri.port, password: uri.password
     end
 
-    def message(message)
-      log "message:#{message}"
+    def message(notification)
+      log "message:#{notification.message}"
     end
 
-    def start(example_count)
+    def start(notification)
       log 'status:start'
       redis.del config.last_run_primary_key
     end
 
-    def stop
+    def stop(notification)
       log 'status:stop'
     end
 
-    def example_started(example)
+    def example_passed(notification)
+      log_formatted notification.example
     end
 
-    def example_passed(example)
-      log_formatted example
+    def example_pending(notification)
+      log_formatted notification.example
     end
 
-    def example_pending(example)
-      log_formatted example
+    def example_failed(notification)
+      log_formatted notification.example
     end
 
-    def example_failed(example)
-      log_formatted example
-    end
-
-    def close
+    def close(notification)
     end
 
     private
@@ -72,9 +72,9 @@ module RSpectacles
       {
         :description => example.description,
         :full_description => example.full_description,
-        :status => example.execution_result[:status],
-        :duration => example.execution_result[:run_time],
-        :file_path => example.metadata[:file_path],
+        :status => example.execution_result.status,
+        :duration => example.execution_result.run_time,
+        :file_path => example.file_path,
         :line_number  => example.metadata[:line_number]
       }.to_json
     end
