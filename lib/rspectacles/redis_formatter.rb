@@ -7,6 +7,11 @@ require 'json'
 
 module RSpectacles
   class RedisFormatter < RSpec::Core::Formatters::BaseFormatter
+    if ::RSpec::Core::Version::STRING >= '3.0.0'
+      RSpec::Core::Formatters.register self, :message, :start, :stop, :close,
+                                       :example_passed, :example_pending, :example_failed
+    end
+
     attr_accessor :redis
 
     class << self
@@ -31,9 +36,6 @@ module RSpectacles
 
     def stop
       log 'status:stop'
-    end
-
-    def example_started(example)
     end
 
     def example_passed(example)
