@@ -19,10 +19,13 @@
       <li class='{{ status }}'><span id='status'>{{ status }}</span></li>
       <li><strong>Description:</strong></li>
       <li class='name'>{{ name }}</li>
+      {{# file_path }}
       <li><strong>File:</strong></li>
       <li>{{ file_path }}:<span id='line_number'>{{ line_number }}</span></li>
+      {{/ file_path }}
       <li>
         <span id='value'>{{ value }}</span> <span id='time_or_count'> {{ time_or_count }}</span>
+        <span id='minutes'>{{# minutes }} ({{ minutes }}) {{/ minutes }}</span>
       </li>
     </ul>
   </script>

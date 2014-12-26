@@ -20,8 +20,8 @@ Or in your Gemfile:
 
 Then add the formatter to your .rspec file:
 
-    --require 'rspectacles/redis_formatter'
-    --format RSpectacles::RedisFormatter
+    --require rspectacles/formatter/redis
+    --format RSpectacles::Formatter::Redis
 
     --format progress # or whatever other formatters you want to use
 
