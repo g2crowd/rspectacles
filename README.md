@@ -6,6 +6,8 @@ Server-Sent Events, Redis, and d3.js to render a
 [partition](http://bl.ocks.org/mbostock/4063423) of your specs in real time, so
 that you can tell at a glance where the time is spent in your test suite.
 
+![Example Partition](viz.png)
+
 As a Sinatra app it can be run standalone, or else mounted on another Rack app.
 
 ## Installation
@@ -25,6 +27,8 @@ Then add the formatter to your .rspec file:
 
     --format progress # or whatever other formatters you want to use
 
+## Redis
+
 RSpectacles depends on [Redis](http://redis.io) for pubsub and persistence. You
 can quickly get an instance up and running by using your favorite package
 manager:
@@ -38,7 +42,7 @@ Start the server and connect to it in your browser:
 
 Then run your specs and watch the magic happen!
 
-## The Server
+## Web Server
 
 The server can be run in standalone mode:
 
