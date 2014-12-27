@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rspectacles (0.0.9)
+    rspectacles (0.1.0)
       em-hiredis (~> 0.2.1)
       rake
       redis
