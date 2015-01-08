@@ -10,6 +10,8 @@ module RSpectacles
                                            stop
                                            message)
 
+      attr_reader :output
+
       def initialize(_)
       end
 

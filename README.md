@@ -27,6 +27,11 @@ Then add the formatter to your .rspec file:
 
     --format progress # or whatever other formatters you want to use
 
+The formatter assumes you are using RSpec3. If you use RSpec 2:
+
+    --require rspectacles/formatter/legacy/redis
+    --format RSpectacles::Formatter::Legacy::Redis
+
 ## Redis
 
 RSpectacles depends on [Redis](http://redis.io) for pubsub and persistence. You
