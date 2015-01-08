@@ -5,6 +5,8 @@ module RSpectacles
   module Formatter
     module Legacy
       class Redis < RSpec::Core::Formatters::BaseFormatter
+        attr_reader :output
+
         def initialize(_)
         end
 
