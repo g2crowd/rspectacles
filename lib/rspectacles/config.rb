@@ -13,7 +13,7 @@ module RSpectacles
         sinatra_port: ENV['RSPECTACLES_PORT'] || ENV['PORT'] || 4567,
         batch_size: (ENV['RSPECTACLES_BATCH_SIZE'] || 100).to_i,
         pubsub_channel_name: ENV['RSPECTACLES_CHANNEL'] || 'redis-rspec-examples',
-        last_run_primary_key: ENV['RSPECTACLES_LAST_RUN_KEY'] || 'redis-rspec-last-run',
+        last_run_primary_key: ENV['RSPECTACLES_LAST_RUN_KEY'] || ENV['CIRCLE_BUILD_NUM'] || 'redis-rspec-last-run',
         redis_uri: ENV['RSPECTACLES_REDIS_URL'] || 'redis://127.0.0.1:6379/'
       }
     end
