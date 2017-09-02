@@ -26,10 +26,10 @@ module RSpectacles
     end
 
     uri = URI.parse config.redis_uri
-    redis = Redis.new host: uri.host, port: uri.port
+    redis = Redis.new host: uri.host, port: uri.port, password: uri.password, username: uri.user
 
     # Routes
-    get '/' do
+    get '/watch/:key' do
       erb :index
     end
 
@@ -40,8 +40,8 @@ module RSpectacles
       end
     end
 
-    get '/last' do
-      redis.lrange(config.last_run_primary_key, 0, -1).to_json
+    get '/last/:key' do
+      redis.lrange(params['key'], 0, -1).to_json
     end
 
     # pubsub and streaming - EventMachine support only

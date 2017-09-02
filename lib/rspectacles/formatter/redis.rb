@@ -16,7 +16,7 @@ module RSpectacles
       end
 
       def logger
-        @logger ||= RSpectacles::Adapter::RedisLogger.new
+        @logger ||= RSpectacles::Adapter::RedisLogger.new(test_run_key: current_run_key)
       end
 
       def message(notification)
@@ -25,7 +25,6 @@ module RSpectacles
 
       def start(_)
         logger.log 'status:start'
-        logger.delete_last_log
       end
 
       def stop(_)
@@ -42,6 +41,14 @@ module RSpectacles
 
       def example_failed(notification)
         logger.log_formatted notification.example
+      end
+
+      def current_run_key
+        ENV['CURRENT_RSPEC_RUN'] || config.last_run_primary_key
+      end
+
+      def config
+        RSpectacles.config
       end
     end
   end

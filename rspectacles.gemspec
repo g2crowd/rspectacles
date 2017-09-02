@@ -23,7 +23,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rspec'
   s.add_dependency 'rake'
   s.add_dependency 'thin', '>= 1.5.1'
-  s.add_dependency 'sinatra', '~> 1.4.5'
+  s.add_dependency 'sinatra', '>= 1.4.5'
   s.add_dependency 'redis'
-  s.add_dependency 'em-hiredis', '~> 0.3.0'
+  s.add_dependency 'em-hiredis', '>= 0.3.0'
 end

@@ -5,7 +5,7 @@
   <title>RSpectacles</title>
   <link rel='stylesheet' href='<%= versioned_stylesheet 'style' %>' />
 </head>
-<body data-stream-url=<%= url '/stream' %> data-last-url=<%= url '/last' %>>
+<body data-stream-url=<%= url '/stream' %> data-last-url=<%= url "/last/#{params['key']}" %> data-current-run=<%= params['key'] %>>
   <form>
     <label><input type="radio" name="mode" value="size" checked> Time</label>
     <label><input type="radio" name="mode" value="count"> Count</label>

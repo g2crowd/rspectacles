@@ -6,10 +6,11 @@ require 'json'
 module RSpectacles
   module Adapter
     class RedisLogger
-      attr_reader :redis
+      attr_reader :redis, :test_run_key
 
-      def initialize
-        @redis = ::Redis.new host: uri.host, port: uri.port, password: uri.password
+      def initialize(test_run_key: nil)
+        @redis = ::Redis.new host: uri.host, port: uri.port, password: uri.password, username: uri.user
+        @test_run_key = test_run_key || config.last_run_primary_key
       end
 
       def config
@@ -25,18 +26,19 @@ module RSpectacles
       end
 
       def log(message)
-        redis.publish config.pubsub_channel_name, message
-        redis.lpush config.last_run_primary_key, message
+        redis.publish config.pubsub_channel_name, "#{test_run_key}:#{message}"
+        redis.lpush test_run_key, "#{test_run_key}:#{message}"
       end
 
       def log_formatted(example)
         message = format_example(example)
         redis.publish config.pubsub_channel_name, message
-        redis.lpush config.last_run_primary_key, message
+        redis.lpush test_run_key, message
       end
 
       def format_example(example)
         {
+          :rspec_run => test_run_key,
           :description => example.description,
           :full_description => example.full_description,
           :status => example.execution_result.status,
