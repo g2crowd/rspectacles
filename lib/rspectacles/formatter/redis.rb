@@ -20,15 +20,15 @@ module RSpectacles
       end
 
       def message(notification)
-        logger.log "message:#{notification.message}"
+        logger.message notification.message
       end
 
       def start(_)
-        logger.log 'status:start'
+        logger.start
       end
 
       def stop(_)
-        logger.log 'status:stop'
+        logger.stop
       end
 
       def example_passed(notification)
