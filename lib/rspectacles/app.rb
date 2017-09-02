@@ -33,6 +33,11 @@ module RSpectacles
       erb :index
     end
 
+    get '/watch' do
+      params['key'] = config.last_run_primary_key
+      erb :index
+    end
+
     get '/stream', :provides => 'text/event-stream' do
       stream :keep_open do |out|
         connections << out
