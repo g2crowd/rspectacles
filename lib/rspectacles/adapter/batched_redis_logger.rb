@@ -17,8 +17,8 @@ module RSpectacles
       end
 
       def queue(message)
-        puts test_run_key, message
         queued_messages << message
+        flush_queue if queued_messages.count > batch_size
       end
 
       def flush_queue
