@@ -1,8 +1,8 @@
-require 'rspectacles/adapter/redis_logger'
+require 'rspectacles/adapter/logger'
 
 module RSpectacles
   module Formatter
-    class Redis
+    class Base
       RSpec::Core::Formatters.register self,
                                        *%i(example_passed
                                            example_failed
@@ -16,11 +16,10 @@ module RSpectacles
       end
 
       def logger
-        @logger ||= RSpectacles::Adapter::RedisLogger.new(test_run_key: current_run_key)
+        @logger ||= RSpectacles::Adapter::Logger.new(test_run_key: current_run_key)
       end
 
       def message(notification)
-        logger.message notification.message
       end
 
       def start(_)
@@ -32,15 +31,15 @@ module RSpectacles
       end
 
       def example_passed(notification)
-        logger.log_formatted notification.example
+        logger.log notification.example
       end
 
       def example_pending(notification)
-        logger.log_formatted notification.example
+        logger.log notification.example
       end
 
       def example_failed(notification)
-        logger.log_formatted notification.example
+        logger.log notification.example
       end
 
       def current_run_key

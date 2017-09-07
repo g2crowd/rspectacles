@@ -1,45 +1,43 @@
 require 'rspec/core/formatters/base_formatter'
-require 'rspectacles/adapter/redis_logger'
+require 'rspectacles/adapter/logger'
 
 module RSpectacles
   module Formatter
     module Legacy
-      class Redis < RSpec::Core::Formatters::BaseFormatter
+      class Base < RSpec::Core::Formatters::BaseFormatter
         attr_reader :output
 
         def initialize(_)
         end
 
         def logger
-          @logger ||= RSpectacles::Adapter::RedisLogger.new
+          @logger ||= RSpectacles::Adapter::Logger.new
         end
 
-        def message(message)
-          logger.log "message:#{message}"
+        def message(_message)
         end
 
-        def start(example_count)
-          logger.log 'status:start'
-          logger.delete_last_log
+        def start(_example_count)
+          logger.start
         end
 
         def stop
-          logger.log 'status:stop'
+          logger.stop
         end
 
         def example_started(example)
         end
 
         def example_passed(example)
-          logger.log_formatted example
+          logger.log example
         end
 
         def example_pending(example)
-          logger.log_formatted example
+          logger.log example
         end
 
         def example_failed(example)
-          logger.log_formatted example
+          logger.log example
         end
 
         def close

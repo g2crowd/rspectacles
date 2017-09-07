@@ -1,15 +1,14 @@
 require 'rspectacles/config'
-require 'redis'
 require 'uri'
 require 'json'
+require 'httparty'
 
 module RSpectacles
   module Adapter
-    class RedisLogger
-      attr_reader :redis, :test_run_key
+    class Logger
+      attr_reader :test_run_key
 
       def initialize(test_run_key: nil)
-        @redis = ::Redis.new host: uri.host, port: uri.port, password: uri.password, username: uri.user
         @test_run_key = test_run_key || config.last_run_primary_key
       end
 
@@ -18,37 +17,33 @@ module RSpectacles
       end
 
       def uri
-        @uri ||= URI.parse config.redis_uri
-      end
-
-      def delete_last_log
-        redis.del config.last_run_primary_key
+        @uri ||= config.rspectacles_url
       end
 
       def stop
-        log 'status:stop'
       end
 
       def start
-        log 'status:start'
       end
 
-      def message(text)
-        log "message:#{text}"
-      end
-
-      def log(message)
-        queue "#{test_run_key}:#{message}"
-      end
-
-      def log_formatted(example)
+      def log(example)
         message = format_example(example)
         queue message
       end
 
+      private
+
       def queue(message)
-        redis.publish config.pubsub_channel_name, message
-        redis.lpush test_run_key, message
+        return unless active?
+        HTTParty.post(uri, timeout: 5, data: { examples: Array.wrap(message) })
+      end
+
+      def active?
+        !!uri
+      end
+
+      def full_uri
+        "#{uri}/examples"
       end
 
       def format_example(example)
@@ -60,7 +55,7 @@ module RSpectacles
           duration: example.execution_result.run_time,
           file_path: example.metadata[:file_path],
           line_number: example.metadata[:line_number]
-        }.to_json
+        }
       end
     end
   end

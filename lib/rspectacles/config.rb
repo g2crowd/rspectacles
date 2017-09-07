@@ -5,16 +5,15 @@ require 'erb'
 module RSpectacles
   class Config
     def initialize
-      @opts = OpenStruct.new defaults.merge(yml || {})
+      @opts = OpenStruct.new defaults.merge(yml.symbolize_keys)
     end
 
     def defaults
       {
         sinatra_port: ENV['RSPECTACLES_PORT'] || ENV['PORT'] || 4567,
         batch_size: (ENV['RSPECTACLES_BATCH_SIZE'] || 100).to_i,
-        pubsub_channel_name: ENV['RSPECTACLES_CHANNEL'] || 'redis-rspec-examples',
-        last_run_primary_key: ENV['RSPECTACLES_LAST_RUN_KEY'] || ENV['CIRCLE_BUILD_NUM'] || 'redis-rspec-last-run',
-        redis_uri: ENV['RSPECTACLES_REDIS_URL'] || 'redis://127.0.0.1:6379/'
+        last_run_primary_key: ENV['RSPECTACLES_LAST_RUN_KEY'] || ENV['CIRCLE_BUILD_NUM'] || 'rspec-last-run',
+        rspectacles_url: ENV['RSPECTACLES_URL']
       }
     end
 
@@ -25,9 +24,7 @@ module RSpectacles
     private
 
     def yml_path
-      if ENV['RSPECTACLES_CONFIG']
-        ::File.expand_path(ENV['RSPECTACLES_CONFIG'])
-      end
+      ::File.expand_path(ENV['RSPECTACLES_CONFIG']) if ENV['RSPECTACLES_CONFIG']
     end
 
     def yml_exists?
@@ -35,7 +32,11 @@ module RSpectacles
     end
 
     def yml
-      @yml ||= ::YAML.load(::ERB.new(IO.read(yml_path)).result) if yml_exists?
+      if yml_exists?
+        @yml ||= ::YAML.load(::ERB.new(IO.read(yml_path)).result)
+      else
+        {}
+      end
     end
   end
 

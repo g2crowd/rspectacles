@@ -1,9 +1,9 @@
-require 'rspectacles/adapter/batched_redis_logger'
-require 'rspectacles/formatter/redis'
+require 'rspectacles/adapter/batched_logger'
+require 'rspectacles/formatter/base'
 
 module RSpectacles
   module Formatter
-    class BatchedRedis < RSpectacles::Formatter::Redis
+    class Batched < RSpectacles::Formatter::Base
       RSpec::Core::Formatters.register self,
                                        *%i(example_passed
                                            example_failed
@@ -12,7 +12,7 @@ module RSpectacles
                                            message)
 
       def logger
-        @logger ||= RSpectacles::Adapter::BatchedRedisLogger.new(test_run_key: current_run_key)
+        @logger ||= RSpectacles::Adapter::BatchedLogger.new(test_run_key: current_run_key)
       end
     end
   end

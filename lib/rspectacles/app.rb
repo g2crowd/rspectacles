@@ -1,15 +1,17 @@
 require 'rubygems'
 require 'sinatra/base'
 require 'json'
-require 'em-hiredis'
-require 'redis'
-require 'uri'
+require 'sinatra/activerecord'
 require 'thin'
 require 'rspectacles/config.rb'
+require 'rspectacles/app/models/example'
 
 module RSpectacles
   class App < Sinatra::Base
     require 'rspectacles/app/helpers'
+    register Sinatra::ActiveRecordExtension
+
+    set :database_file, 'config/database.yml'
 
     connections = []
     config = RSpectacles.config
@@ -25,9 +27,6 @@ module RSpectacles
       set :public, "#{dir}/app/public"
     end
 
-    uri = URI.parse config.redis_uri
-    redis = Redis.new host: uri.host, port: uri.port, password: uri.password, username: uri.user
-
     # Routes
     get '/watch/:key' do
       erb :index
@@ -38,24 +37,18 @@ module RSpectacles
       erb :index
     end
 
-    get '/stream', :provides => 'text/event-stream' do
-      stream :keep_open do |out|
-        connections << out
-        out.callback { connections.delete(out) }
-      end
+    get '/examples/:key' do
+      Example.where(rspec_run: params['key']).to_json
     end
 
-    get '/last/:key' do
-      redis.lrange(params['key'], 0, -1).to_json
-    end
+    post '/examples' do
+      payload = JSON.parse(request.body.read)
 
-    # pubsub and streaming - EventMachine support only
-    EM.next_tick do
-      emredis = EM::Hiredis.connect(uri)
-
-      emredis.pubsub.subscribe config.pubsub_channel_name do |message|
-        connections.each { |out| out << "data: #{message}\n\n" }
+      data = payload['examples'].map do |args|
+        { rspec_run: args['rspec_run'], properties: args }
       end
+
+      Example.create(data)
     end
   end
 end

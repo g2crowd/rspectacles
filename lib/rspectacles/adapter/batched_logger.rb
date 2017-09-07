@@ -1,8 +1,8 @@
-require 'rspectacles/adapter/redis_logger'
+require 'rspectacles/adapter/logger'
 
 module RSpectacles
   module Adapter
-    class BatchedRedisLogger < RedisLogger
+    class BatchedLogger < Logger
       def queued_messages
         @queued_messages ||= []
       end
@@ -17,15 +17,18 @@ module RSpectacles
       end
 
       def queue(message)
+        return unless active?
         queued_messages << message
         flush_queue if queued_messages.count > batch_size
       end
 
       def flush_queue
-        queued_messages.each do |message|
-          redis.publish config.pubsub_channel_name, message
-          redis.lpush test_run_key, message
-        end
+        return unless active?
+        return unless queued_messages.size > 0
+
+        HTTParty.post(full_uri, timeout: 5,
+                                body: { examples: queued_messages }.to_json,
+                                headers: { 'Content-Type' => 'application/json' })
 
         @queued_messages = []
       end

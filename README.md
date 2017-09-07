@@ -1,9 +1,8 @@
 [![Gem Version](https://badge.fury.io/rb/rspectacles.png)](http://badge.fury.io/rb/rspectacles)
 # RSpectacles
 
-RSpectacles is an in-browser visualizer and profiler for RSpec. It uses
-Server-Sent Events, Redis, and d3.js to render a
-[partition](http://bl.ocks.org/mbostock/4063423) of your specs in real time, so
+RSpectacles is an in-browser visualizer and profiler for RSpec. It uses d3.js to render a
+[partition](http://bl.ocks.org/mbostock/4063423) of your specs based on time to complete, so
 that you can tell at a glance where the time is spent in your test suite.
 
 ![Example Partition](viz.png)
@@ -22,24 +21,30 @@ Or in your Gemfile:
 
 Then add the formatter to your .rspec file:
 
-    --require rspectacles/formatter/redis
-    --format RSpectacles::Formatter::Redis
+    --require rspectacles/formatter/batched
+    --format RSpectacles::Formatter::Batched
 
     --format progress # or whatever other formatters you want to use
 
 The formatter assumes you are using RSpec3. If you use RSpec 2:
 
-    --require rspectacles/formatter/legacy/redis
-    --format RSpectacles::Formatter::Legacy::Redis
+    --require rspectacles/formatter/legacy/base
+    --format RSpectacles::Formatter::Legacy::Base
 
-## Redis
+## Batched Formatter
 
-RSpectacles depends on [Redis](http://redis.io) for pubsub and persistence. You
-can quickly get an instance up and running by using your favorite package
-manager:
+The `Batched` formatter is preferred, as it will send fewer web requests and will be less likely to
+slow down your specs if the connection to the server is slow. You can change the batch
+sizes by changing the `batch_size` in config settings.
 
-    brew install redis
-    redis-server
+## Storage
+
+RSpectacles depends on ActiveRecord for persistence. You
+can quickly get an instance up and running by configuring the database.yml file,
+and running the standard rake commands:
+
+    rake db:create
+    rake db:migrate
 
 Start the server and connect to it in your browser:
 
@@ -72,26 +77,10 @@ export RSPECTACLES_CONFIG='/path/to/config/rspectacles.yml'
 And in ```rspectacles.yml```:
 ```yaml
 sinatra_port: 4567
-redis_uri: 'redis://127.0.0.1:6379/'
-pubsub_channel_name: 'redis-rspec-examples'
+batch_size: 500
+rspectacles_url: 'http://127.0.0.1:4567/'
 last_run_primary_key: 'redis-rspec-last-run'
 ```
-
-## Realtime Results
-
-RSpectacles will attempt to stream spec results into the browser in realtime.
-This optional feature depends on EventMachine, and so will only work on servers
-with EM support. So if you mount RSpectacles on an app that uses
-[thin](http://code.macournoyer.com/thin/) or
-[rainbows](http://rainbows.rubyforge.org/) then
-you should be able to see the realtime results.
-
-If you use a server that doesn't support EventMachine - no sweat. You'll still
-be able to see the visualization. You'll just need to refresh your browser
-from time to time.
-
-Or you could always spin up an instance in standalone mode, which uses thin by
-default.
 
 ## Contributing
 

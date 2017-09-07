@@ -1,0 +1,29 @@
+development:
+  adapter: postgresql
+  database: rspectacles_dev
+  username: postgres
+  pool: 5
+  host: localhost
+  timeout: 5000
+  variables:
+    statement_timeout: 3600000
+
+test: &test
+  adapter: <%= ENV['DB_ADAPTER'] || 'postgresql' %>
+  database: rspectacles_test
+  username: postgres
+  pool: 5
+  host: <%= ENV['DB_HOST'] || 'localhost' %>
+  timeout: 5000
+  variables:
+    statement_timeout: 3600000
+
+production: &production
+  adapter: postgresql
+  database: rspectacles_prod
+  username: postgres
+  pool: 10
+  host: localhost
+  timeout: 5000
+  variables:
+    statement_timeout: 3600000
