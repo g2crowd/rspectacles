@@ -48,7 +48,7 @@ module RSpectacles
         { rspec_run: args['rspec_run'], properties: args }
       end
 
-      Example.create(data)
+      { errors: Example.create(data).count { |i| !i.persisted? } }.to_json
     end
   end
 end
