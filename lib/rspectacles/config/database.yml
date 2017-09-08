@@ -22,7 +22,7 @@ production: &production
   adapter: postgresql
   database: rspectacles_prod
   username: postgres
-  pool: 10
+  pool: 2
   host: localhost
   timeout: 5000
   variables:

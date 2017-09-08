@@ -2,9 +2,9 @@ require 'rubygems'
 require 'sinatra/base'
 require 'json'
 require 'sinatra/activerecord'
-require 'thin'
 require 'rspectacles/config.rb'
 require 'rspectacles/app/models/example'
+require 'puma'
 
 module RSpectacles
   class App < Sinatra::Base
@@ -13,7 +13,6 @@ module RSpectacles
 
     set :database_file, 'config/database.yml'
 
-    connections = []
     config = RSpectacles.config
     dir = File.dirname(File.expand_path(__FILE__))
     set :app_file, __FILE__
