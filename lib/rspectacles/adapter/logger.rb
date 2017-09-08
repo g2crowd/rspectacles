@@ -35,7 +35,15 @@ module RSpectacles
 
       def queue(message)
         return unless active?
-        HTTParty.post(uri, timeout: 5, data: { examples: Array.wrap(message) })
+        post_results Array.wrap(message)
+      end
+
+      def post_results(messages)
+        HTTParty.post(full_uri, timeout: 5,
+                                body: { examples: messages }.to_json,
+                                headers: { 'Content-Type' => 'application/json' })
+      rescue Net::ReadTimeout
+        puts "RSpectacles Timeout! Failed to send #{messages.size} messages"
       end
 
       def active?

@@ -26,10 +26,7 @@ module RSpectacles
         return unless active?
         return unless queued_messages.size > 0
 
-        HTTParty.post(full_uri, timeout: 5,
-                                body: { examples: queued_messages }.to_json,
-                                headers: { 'Content-Type' => 'application/json' })
-
+        post_results queued_messages
         @queued_messages = []
       end
     end
