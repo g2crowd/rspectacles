@@ -29,7 +29,7 @@ module RSpectacles
 
     # Routes
     get '/' do
-      @runs = Run.all.includes(:examples).limit(25).order(rspec_run: :desc)
+      @runs = Run.all.limit(25).order(rspec_run: :desc)
       erb :runs
     end
 
