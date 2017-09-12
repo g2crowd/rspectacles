@@ -4,6 +4,7 @@ require 'json'
 require 'sinatra/activerecord'
 require 'rspectacles/config.rb'
 require 'rspectacles/app/models/example'
+require 'rspectacles/app/models/run'
 require 'puma'
 
 module RSpectacles
@@ -27,6 +28,11 @@ module RSpectacles
     end
 
     # Routes
+    get '/' do
+      @runs = Run.all.limit(25).order(rspec_run: :desc)
+      erb :runs
+    end
+
     get '/watch/:key' do
       erb :index
     end
@@ -43,11 +49,14 @@ module RSpectacles
     post '/examples' do
       payload = JSON.parse(request.body.read)
 
+      run = Run.where(rspec_run: payload['examples'].first['rspec_run']).first_or_create
       data = payload['examples'].map do |args|
-        { rspec_run: args['rspec_run'], properties: args }
+        { run_id: run.id, rspec_run: args['rspec_run'], properties: args }
       end
 
-      { errors: Example.create(data).count { |i| !i.persisted? } }.to_json
+      examples = Example.create(data)
+
+      { errors: examples.count { |i| !i.persisted? } }.to_json
     end
   end
 end

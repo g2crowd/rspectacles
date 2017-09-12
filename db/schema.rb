@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170907205819) do
+ActiveRecord::Schema.define(version: 20170912153508) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,7 +18,17 @@ ActiveRecord::Schema.define(version: 20170907205819) do
   create_table "examples", force: :cascade do |t|
     t.string "rspec_run", null: false
     t.text "properties"
+    t.bigint "run_id"
     t.index ["rspec_run"], name: "index_examples_on_rspec_run"
+    t.index ["run_id"], name: "index_examples_on_run_id"
+  end
+
+  create_table "runs", force: :cascade do |t|
+    t.integer "total_time"
+    t.string "rspec_run", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["rspec_run"], name: "index_runs_on_rspec_run", unique: true
   end
 
 end

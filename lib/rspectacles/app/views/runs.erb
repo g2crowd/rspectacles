@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>RSpectacles</title>
+  <link rel='stylesheet' href='<%= versioned_stylesheet 'style' %>' />
+</head>
+<body>
+  <table>
+    <tr>
+      <th>Run</th>
+      <th>Created At</th>
+    </tr>
+    <% @runs.each do |run| %>
+      <tr>
+        <td>
+          <a href='/watch/<%= run.rspec_run %>'>Run #<%= run.rspec_run %></a>
+        </td>
+        <td>
+          <%= run.created_at.strftime('%Y-%m-%d %H:%M:%S') %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</body>
