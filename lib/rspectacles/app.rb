@@ -29,7 +29,7 @@ module RSpectacles
 
     # Routes
     get '/' do
-      @runs = Run.all.limit(25).order(rspec_run: :desc)
+      @runs = Run.all.includes(:examples).limit(25).order(rspec_run: :desc)
       erb :runs
     end
 
@@ -49,9 +49,9 @@ module RSpectacles
     post '/examples' do
       payload = JSON.parse(request.body.read)
 
-      run = Run.where(rspec_run: payload['examples'].first['rspec_run']).first_or_create
+      run = Run.where(id: payload['examples'].first['rspec_run']).first_or_create(id: payload['examples'].first['rspec_run'])
       data = payload['examples'].map do |args|
-        { run_id: run.id, rspec_run: args['rspec_run'], properties: args }
+        { rspec_run: args['rspec_run'], duration: args['duration'].to_f, properties: args }
       end
 
       examples = Example.create(data)

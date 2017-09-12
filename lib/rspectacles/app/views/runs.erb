@@ -9,12 +9,20 @@
   <table>
     <tr>
       <th>Run</th>
+      <th>Examples</th>
+      <th>Time</th>
       <th>Created At</th>
     </tr>
     <% @runs.each do |run| %>
       <tr>
         <td>
           <a href='/watch/<%= run.rspec_run %>'>Run #<%= run.rspec_run %></a>
+        </td>
+        <td>
+          <%= run.examples.size %>
+        </td>
+        <td>
+          <%= run.runtime %>
         </td>
         <td>
           <%= run.created_at.strftime('%Y-%m-%d %H:%M:%S') %>
