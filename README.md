@@ -40,15 +40,16 @@ sizes by changing the `batch_size` in config settings.
 ## Storage
 
 RSpectacles depends on ActiveRecord for persistence. You
-can quickly get an instance up and running by configuring the database.yml file,
+can quickly get an instance up and running by setting the `DATABASE_URL` environment variable,
 and running the standard rake commands:
 
+    export DATABASE_URL=postgres://...
     rake db:create
     rake db:migrate
 
 Start the server and connect to it in your browser:
 
-    rspectacles
+    rackup
 
 Then run your specs and watch the magic happen!
 
