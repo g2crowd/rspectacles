@@ -70,12 +70,9 @@ Start the server:
 
 Configuration settings can all be set through environment variables:
 
-    # server settings
-    RSPECTACLES_PORT = 4567
-
     # client settings
-    RSPECTACLES_URL = nil
-    RSPECTACLES_RUN_KEY = 'rspec-current-run'
+    RSPECTACLES_URL # where server is running
+    RSPECTACLES_RUN_KEY # set to log parallel builds to same report
     RSPECTACLES_BATCH_SIZE = 1000
     RSPECTACLES_TIMEOUT = 15
 
