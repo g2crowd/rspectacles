@@ -54,33 +54,30 @@ Then run your specs and watch the magic happen!
 
 ## Web Server
 
-The server can be run in standalone mode:
+The server uses ActiveRecord and Postgres to store the examples.
 
-    rspectacles
+Run migrations:
 
-Or mounted directly on your app:
+    # set ENV['DATABASE_URL'] to point to your database, or else database.yml defaults will be used
+    rake db:create
+    rake db:migrate
 
-    # routes.rb
-    mount RSpectacles::App => '/rspectacles'
+Start the server:
+
+    puma
 
 ## Configuration
-If you need to change any settings, the best method is to create a yaml file
-with your settings, and set the ```RSPECTACLES_CONFIG``` environment variable so
-that both the server and formatter can locate the file.
 
-For instance:
+Configuration settings can all be set through environment variables:
 
-```sh
-export RSPECTACLES_CONFIG='/path/to/config/rspectacles.yml'
-```
+    # server settings
+    RSPECTACLES_PORT = 4567
 
-And in ```rspectacles.yml```:
-```yaml
-sinatra_port: 4567
-batch_size: 500
-rspectacles_url: 'http://127.0.0.1:4567/'
-last_run_primary_key: 'redis-rspec-last-run'
-```
+    # client settings
+    RSPECTACLES_URL = nil
+    RSPECTACLES_RUN_KEY = 'rspec-current-run'
+    RSPECTACLES_BATCH_SIZE = 1000
+    RSPECTACLES_TIMEOUT = 15
 
 ## Contributing
 

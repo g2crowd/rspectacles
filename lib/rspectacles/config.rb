@@ -11,8 +11,9 @@ module RSpectacles
     def defaults
       {
         sinatra_port: ENV['RSPECTACLES_PORT'] || ENV['PORT'] || 4567,
-        batch_size: (ENV['RSPECTACLES_BATCH_SIZE'] || 100).to_i,
-        last_run_primary_key: ENV['RSPECTACLES_LAST_RUN_KEY'] || ENV['CIRCLE_BUILD_NUM'] || 'rspec-last-run',
+        batch_size: (ENV['RSPECTACLES_BATCH_SIZE'] || 1000).to_i,
+        last_run_primary_key: ENV['RSPECTACLES_RUN_KEY'] || ENV['CIRCLE_BUILD_NUM'] || 'rspec-current-run',
+        timeout: (ENV['RSPECTACLES_TIMEOUT'] || 15).to_i,
         rspectacles_url: ENV['RSPECTACLES_URL']
       }
     end

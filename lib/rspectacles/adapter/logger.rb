@@ -39,7 +39,7 @@ module RSpectacles
       end
 
       def post_results(messages)
-        HTTParty.post(full_uri, timeout: 5,
+        HTTParty.post(full_uri, timeout: config.timeout,
                                 body: { examples: messages }.to_json,
                                 headers: { 'Content-Type' => 'application/json' })
       rescue Net::ReadTimeout
