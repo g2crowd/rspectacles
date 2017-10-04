@@ -1,0 +1,58 @@
+AllCops:
+  Exclude:
+    - db/schema.rb
+    - db/migrate/*
+
+Documentation:
+  Enabled: false
+
+LineLength:
+  Max: 120
+
+MethodLength:
+  Max: 15
+
+ClassLength:
+  Max: 500
+
+SpaceBeforeFirstArg:
+  Enabled: false
+
+AssignmentInCondition:
+  Enabled: false
+
+SingleLineBlockParams:
+  Enabled: false
+
+Lambda:
+  Enabled: false
+
+NumericLiterals:
+  Enabled: false
+
+LambdaCall:
+  Enabled: false
+
+AndOr:
+  Enabled: false
+
+MultilineOperationIndentation:
+  Enabled: false
+
+AbcSize:
+  Max: 20
+
+Style/MultilineMethodCallIndentation:
+  EnforcedStyle: indented_relative_to_receiver
+
+Bundler/OrderedGems:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false
+
+Style/EmptyMethod:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false

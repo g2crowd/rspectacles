@@ -18,6 +18,10 @@ module RSpectacles
       }
     end
 
+    def timeout
+      @opts[:timeout]
+    end
+
     def method_missing(method, *args)
       @opts.send method, *args
     end
@@ -34,7 +38,7 @@ module RSpectacles
 
     def yml
       if yml_exists?
-        @yml ||= ::YAML.load(::ERB.new(IO.read(yml_path)).result)
+        @yml ||= ::YAML.safe_load(::ERB.new(IO.read(yml_path)).result)
       else
         {}
       end

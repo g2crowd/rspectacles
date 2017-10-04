@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.version     = RSpectacles::VERSION
   s.authors     = ['Michael Wheeler']
   s.email       = ['mwheeler@g2crowd.com']
-  s.homepage    = 'https://github.com/G2Labs-net/rspectacles'
+  s.homepage    = 'https://github.com/g2crowd/rspectacles'
   s.summary     = %q{Visualize rspec test running in the browser}
   s.description = %q{Visualize rspec test running in the browser}
   s.license     = 'MIT'

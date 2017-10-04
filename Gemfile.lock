@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rspectacles (0.4.1)
+    rspectacles (0.4.2)
       httparty
       pg
       puma
@@ -75,4 +75,4 @@ DEPENDENCIES
   rspectacles!
 
 BUNDLED WITH
-   1.14.6
+   1.15.4

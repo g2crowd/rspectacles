@@ -4,11 +4,11 @@ module RSpectacles
   module Formatter
     class Base
       RSpec::Core::Formatters.register self,
-                                       *%i(example_passed
-                                           example_failed
-                                           start
-                                           stop
-                                           message)
+                                       :example_passed,
+                                       :example_failed,
+                                       :start,
+                                       :stop,
+                                       :message
 
       attr_reader :output
 
@@ -19,7 +19,7 @@ module RSpectacles
         @logger ||= RSpectacles::Adapter::Logger.new(test_run_key: current_run_key)
       end
 
-      def message(notification)
+      def message(_notification)
       end
 
       def start(_)
