@@ -49,7 +49,8 @@ module RSpectacles
     post '/examples' do
       payload = JSON.parse(request.body.read)
 
-      run = Run.where(rspec_run: payload['examples'].first['rspec_run']).first_or_create
+      Run.where(rspec_run: payload['examples'].first['rspec_run']).first_or_create
+
       data = payload['examples'].map do |args|
         { rspec_run: args['rspec_run'], duration: args['duration'].to_f, properties: args }
       end
