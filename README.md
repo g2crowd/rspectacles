@@ -9,6 +9,10 @@ that you can tell at a glance where the time is spent in your test suite.
 
 As a Sinatra app it can be run standalone, or else mounted on another Rack app.
 
+## Compatibility
+
+RSpectacles assumes you are using rspec 3 or later.
+
 ## Installation
 
     gem install rspectacles
@@ -26,10 +30,7 @@ Then add the formatter to your .rspec file:
 
     --format progress # or whatever other formatters you want to use
 
-The formatter assumes you are using RSpec3. If you use RSpec 2:
-
-    --require rspectacles/formatter/legacy/base
-    --format RSpectacles::Formatter::Legacy::Base
+The formatter assumes you are using RSpec3.
 
 ## Batched Formatter
 

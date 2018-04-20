@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rspectacles (0.4.2)
+    rspectacles (0.5.0)
       httparty
       pg
       puma
