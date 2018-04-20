@@ -6,7 +6,7 @@ require 'securerandom'
 module RSpectacles
   class Config
     def initialize
-      @opts = OpenStruct.new defaults.merge(yml.symbolize_keys)
+      @opts = OpenStruct.new defaults.merge(yml)
     end
 
     def defaults
@@ -23,7 +23,7 @@ module RSpectacles
     end
 
     def method_missing(method, *args)
-      @opts.send method, *args
+      @opts.public_send method, *args
     end
 
     private
@@ -37,11 +37,17 @@ module RSpectacles
     end
 
     def yml
-      if yml_exists?
-        @yml ||= ::YAML.safe_load(::ERB.new(IO.read(yml_path)).result)
-      else
-        {}
-      end
+      res = if yml_exists?
+              @yml ||= ::YAML.safe_load(::ERB.new(IO.read(yml_path)).result)
+            else
+              {}
+            end
+
+      sanitize(res)
+    end
+
+    def sanitize(hash)
+      hash.each_with_object({}) { |(key, value), memo| memo[key.to_sym] = value }
     end
   end
 
