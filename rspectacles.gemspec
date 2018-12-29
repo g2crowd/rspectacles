@@ -27,5 +27,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'sinatra-activerecord'
   s.add_dependency 'puma'
   s.add_dependency 'sinatra', '>= 1.4.5'
+  s.add_dependency 'rack', '>= 2.0.6'
   s.add_dependency 'httparty'
 end
