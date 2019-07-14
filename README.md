@@ -11,7 +11,7 @@ As a Sinatra app it can be run standalone, or else mounted on another Rack app.
 
 ## Compatibility
 
-RSpectacles assumes you are using rspec 3 or later.
+RSpectacles assumes you are using RSpec 3 or later.
 
 ## Installation
 
@@ -19,18 +19,20 @@ RSpectacles assumes you are using rspec 3 or later.
 
 Or in your Gemfile:
 
-    group :test, :development do
-      gem 'rspectacles'
-    end
+```ruby
+group :test, :development do
+  gem 'rspectacles'
+end
+```
 
-Then add the formatter to your .rspec file:
+Then add the formatter to your `.rspec` file:
 
     --require rspectacles/formatter/batched
     --format RSpectacles::Formatter::Batched
 
     --format progress # or whatever other formatters you want to use
 
-The formatter assumes you are using RSpec3.
+The formatter assumes you are using RSpec 3.
 
 ## Batched Formatter
 
@@ -72,11 +74,12 @@ Start the server:
 
 Configuration settings can all be set through environment variables:
 
-    # client settings
-    RSPECTACLES_URL # where server is running
-    RSPECTACLES_RUN_KEY # set to log parallel builds to same report
-    RSPECTACLES_BATCH_SIZE = 1000
-    RSPECTACLES_TIMEOUT = 15
+| Environment variable | Description | Default value |
+| --- | --- | --- |
+| RSPECTACLES_URL | Where server is running | |
+| RSPECTACLES_RUN_KEY | Set this to log parallel builds to same report | |
+| RSPECTACLES_BATCH_SIZE |  | 1000 |
+| RSPECTACLES_TIMEOUT    |  | 15 |
 
 ## Contributing
 
